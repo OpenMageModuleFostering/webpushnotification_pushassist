@@ -13,25 +13,23 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_NotificationsendContro
 
 		
 		if(isset($_FILES['fileupload']['name']) && $_FILES['fileupload']['name'] != '') {
-			$baseurl=Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true );
+			  
 			$uploader = new Varien_File_Uploader('fileupload');
 			$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
 			$uploader->setAllowRenameFiles(false);
 			$uploader->setFilesDispersion(false);
 			$random_digit=rand(0000,9999);
-			$ext = substr($_FILES['fileupload']['name'], strrpos($_FILES['fileupload']['name'], '.') + 1);
-			$new_file_name = 'webpush' . time() . '.' . $ext;
+			$new_file_name=$random_digit.$_FILES['fileupload']['name'];
 			$path = Mage::getBaseDir('media').DS.'pushassist'.DS;
 			$uploader->save($path, $new_file_name);
 			$post['fileupload'] = 'pushassist'.DS.$new_file_name; 
-			$full_image_path=$baseurl.'media/pushassist/'.$new_file_name;
-		}else{
-			$full_image_path='';
+			$full_image_path=Mage::getBaseUrl().'media/pushassist/'.$new_file_name;
 		}
 
  	    
 
 	    $response_array = array("notification" => array(
+						"siteurl" => Mage::getBaseUrl(),
 						"title" => $post['title'],
 						"message" => $post['message'],
 						"redirect_url" => $post['url'],

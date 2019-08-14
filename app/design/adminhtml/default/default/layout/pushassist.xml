@@ -61,27 +61,17 @@
  <adminhtml_pushassist_campaign_index>
 	<reference name="head">
 	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
-	  <action method="addJs"><script>pushassist/jquery.min.js</script></action>
 	</reference>
 	<reference name="content">
 	  <block type="pushassist/adminhtml_campaign" name="campaign" template="pushassist/campaign.phtml"/>
 	</reference>
   </adminhtml_pushassist_campaign_index>
-  <adminhtml_pushassist_settings_index>
+  <!--<adminhtml_pushassist_createcampaign_index>
 	<reference name="head">
 	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
-	  <action method="addJs"><script>pushassist/jquery.min.js</script></action>
 	</reference>
 	<reference name="content">
-	  <block type="pushassist/adminhtml_settings" name="settings" template="pushassist/settings.phtml"/>
+	  <block type="pushassist/adminhtml_createcampaign" name="createcampaign" template="pushassist/createcampaign.phtml"/>
 	</reference>
-  </adminhtml_pushassist_settings_index>
-   <adminhtml_dashboard_index>
-	<reference name="head">
-	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
-	</reference>
-        <reference name="content">
-	 <block type="core/template" name="" template="pushassist/push_dashboard.phtml"/>
-        </reference>
-      </adminhtml_dashboard_index>
+  </adminhtml_pushassist_createcampaign_index>-->
 </layout>
