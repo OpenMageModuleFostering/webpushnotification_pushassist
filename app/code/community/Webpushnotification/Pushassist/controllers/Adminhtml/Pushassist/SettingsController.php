@@ -22,12 +22,10 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_SettingsController ext
 			$random_digit=rand(0000,9999);
 			$ext = substr($_FILES['fileupload']['name'], strrpos($_FILES['fileupload']['name'], '.') + 1);
 			$new_file_name = time() . '.' . $ext;
-			//$new_file_name=$random_digit.$_FILES['fileupload']['name'];
 			$path = Mage::getBaseDir('media').DS.'pushassist'.DS.'site'.DS;
 			$uploader->save($path, $new_file_name);
 			$post['fileupload'] = 'pushassist'.DS.$new_file_name; 
-			//$full_image_path=$baseurl.'media/pushassist/site/'.$new_file_name;
-			 $full_image_path=base64_encode(file_get_contents($path.$new_file_name));
+			$full_image_path=base64_encode(file_get_contents($path.$new_file_name));
 
 
 		    }else{
@@ -123,4 +121,16 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_SettingsController ext
 		    }
 	    }
 	}
+	public function autosendproductAction(){ 
+		
+	    $post = $this->getRequest()->getPost();
+	    if(isset($post['pushassist_js_restrict'])){
+		Mage::getModel('core/config')->saveConfig('pushassistsection/general/pushassist_js_restrict',$post['pushassist_js_restrict'] ,'default',0);
+	    }else{
+		Mage::getModel('core/config')->saveConfig('pushassistsection/general/pushassist_js_restrict','' ,'default',0);
+	    }
+	    Mage::getModel('core/config')->saveConfig('pushassistsection/general/pushassist_setting_post_message',$post['pushassist_setting_post_message'] ,'default',0);
+	    $this->_redirect('*/pushassist_settings/index');
+	}
+	
 }

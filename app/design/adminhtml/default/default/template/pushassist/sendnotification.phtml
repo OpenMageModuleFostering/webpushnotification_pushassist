@@ -12,7 +12,6 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
 <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
 <div id="Psidebar" >
   <ul>
-    <!--<li><a href="<?php //echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>-->
     <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>"><?php echo $this->__('Dashboard')?></a></li>
     <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>"><?php echo $this->__('Notifications')?></a></li>
     <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>"><?php echo $this->__('Send Notification')?></a></li>
@@ -63,16 +62,7 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
                                 </div>
   
                             </div>
-                            <!--<div class="form-group">
-                                <label class="col-sm-3 control-label form-label">Campaign Date</label>
-
-                                <div class="col-sm-9 input-group date" form_datetime id="form_datetime" data-date="" data-date-format="dd MM yyyy , HH:ii" data-link-field="date">
-                                    <input  size="16" type="text" value="" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                                </div>
-                                <input type="hidden" id="date" name="date" value="" />
-                            </div>-->
+                            
                             <div class="form-group margin-b-0">
                                 <label for="focusedinput" class="col-sm-3 control-label form-label"><?php echo $this->__('Notification Logo')?></label>    
                                 <div class="col-sm-9">
@@ -139,11 +129,7 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
                                 <div class="col-sm-offset-3 col-sm-1 col-xs-3">
                                     <button type="submit" class="btn btn-default"><?php echo $this->__('Send')?></button>
                                 </div>
-
-                                <!--<div class="col-sm-2 margin-l-30 col-xs-7">
-                                    <input type="submit" class="btn btn-default s_draft" value="Save Draft">
-                                </div>-->
-                            </div>
+			    </div>
                         <!--</form>-->
                     </div>
                 </div>

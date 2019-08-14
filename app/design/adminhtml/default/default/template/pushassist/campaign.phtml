@@ -135,12 +135,7 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
                                     <input type="text" class="form-control" name="utm_campaign" id="utm_campaign" value="pushassist" placeholder="Enter UTM Campaign" maxlength="500" required="required"  />
                                     <span class="pull-right"><?php echo $this->__('Limit 500 Characters')?></span>
                                 </div>    
-                               <!-- <input type="hidden" id="campaign_id" name="campaign_id" value="" />
-                                <input type="hidden" id="status" name="status" value="" />
-                                <input type="hidden" id="notification_logo" name="notification_logo" />
-                                <input type="hidden" id="cmp_status" name="cmp_status" value="0" />
-                                <input type="hidden" id="date" name="date" value="" />
-                                <input type="hidden" id="is_draft" name="is_draft" value="1" />   --> 
+                              
                             </div>
 			     <div class="form-group">
                                 <label class="col-sm-3 control-label form-label"><?php echo $this->__('Segment')?></label>
@@ -330,6 +325,4 @@ jQuery(document).ready(function() {
 <?php
 }else{
  Mage::app()->getResponse()->setRedirect(Mage::helper("adminhtml")->getUrl("adminhtml/pushassist_createaccount/index/"));
-//Mage::app()->getResponse()->setRedirect(Mage::helper("adminhtml")->getUrl("adminhtml/system_config/edit/section/pushassistsection"));
-
 } ?>

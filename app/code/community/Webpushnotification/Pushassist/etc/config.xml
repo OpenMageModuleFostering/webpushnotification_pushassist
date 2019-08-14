@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Webpushnotification_Pushassist>
-      <version>1.0.7</version>
+      <version>1.0.8</version>
     </Webpushnotification_Pushassist>
   </modules>
   <global>
@@ -14,9 +14,21 @@
     <models>
 	<pushassist>
                 <class>Webpushnotification_Pushassist_Model</class>
+		
             </pushassist>   
          
         </models>
+        <resources>
+            <pushassist_setup>
+                <setup>
+                    <module>Webpushnotification_Pushassist</module>		  
+		    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>	
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pushassist_setup>          	 
+        </resources>
 	<blocks>
 	  <pushassist>
 		<class>Webpushnotification_Pushassist_Block</class>
@@ -102,12 +114,6 @@
 			<sort_order>8</sort_order>
 			<action>adminhtml/pushassist_campaign</action>
 		  </campaign>
-		  
-		 <!-- <createcampaign module="pushassist">
-			<title>Create Campaign</title>
-			<sort_order>8</sort_order>
-			<action>adminhtml/pushassist_createcampaign</action>
-		  </createcampaign>-->
 		</children>
 	  </pushassist>
 	</menu>
@@ -149,10 +155,6 @@
 			 <campaign translate="title">
 				<title>Campaign</title>
 			  </campaign>
-			  
-			   <!--<createcampaign translate="title">
-				<title>Create Campaign</title>
-			  </createcampaign>-->
 			  </children>
 			</pushassist>
 		  </children>
@@ -175,5 +177,22 @@
                 </Webpushnotification_Pushassist>
             </modules>
         </translate>
+         <events>
+           <catalog_product_save_after>
+                <observers>
+                    <pushnotification_new_product>
+                        <class>Webpushnotification_Pushassist_Model_Observer</class>
+                        <method>addNewproduct</method>
+                    </pushnotification_new_product>
+                </observers>
+            </catalog_product_save_after>
+        </events>
   </adminhtml>
+  <default>
+    <pushassistsection>
+	<general>
+	  <pushassist_setting_post_message>We are pleased to annouce the launch of our brand new product. Check it out!</pushassist_setting_post_message>
+	</general>	
+    </pushassistsection>
+    </default>
 </config> 

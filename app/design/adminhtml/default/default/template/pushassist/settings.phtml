@@ -1,6 +1,10 @@
 <?php 
 $check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
 $check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
+
+$pushassist_js_restrict=Mage::app()->getStore()->getConfig('pushassistsection/general/pushassist_js_restrict');
+$pushassist_setting_post_message=Mage::app()->getStore()->getConfig('pushassistsection/general/pushassist_setting_post_message');
+
 $account_response = Mage::helper('pushassist')->get_account_details();
 if(isset($account_response['account_name'])){
 $account_url='https://'.$account_response['account_name'].'.pushassist.com/allsites/';
@@ -10,7 +14,6 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
 ?>
 <div id="Psidebar" >
   <ul>
-   <!-- <li><a href="<?php //echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>-->
     <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>"><?php echo $this->__('Dashboard')?></a></li>
     <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>"><?php echo $this->__('Notifications')?></a></li>
     <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>"><?php echo $this->__('Send Notification')?></a></li>
@@ -247,6 +250,7 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
                         </div>
 
                         <div class="form-group">
+			  
                             <div class="col-sm-2"></div>
                             <div class="col-sm-8">
                                 <button type="submit" class="btn btn-default" value="Save Settings" name="psa-advance-settings"><?php echo $this->__('Save Settings')?></button>
@@ -254,7 +258,32 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
                         </div>
   
                     </form>
+		    <hr>
+		   <form class="form-horizontal"  autocomplete="off" id="pushassist_auto_send_form" name="pushassist_auto_send_form" enctype="multipart/form-data" action="<?php echo $this->getUrl('*/*/autosendproduct'); ?>" method="post">
+			<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+			    <div class="form-group" style="margin-top:10px">
+			      <div class="col-sm-2"></div>
+			      <div class="col-sm-10">
+				    <input type="checkbox" value="1" <?php echo ($pushassist_js_restrict==1 ? 'checked' : '');?> name="pushassist_js_restrict" id="pushassist_js_restrict">
+                                    <label class="form-label checkbox_title margin-l-10 margin-t-5"><?php echo $this->__('Stop Automatic Script Inclusion. In That Case You Have to Manually Install our Script.')?></label>
+                              </div>
+			    </div>
 
+			  <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10">
+                               <label><?php echo $this->__('Notification Message When a Product is Added')?></label>
+			    <input type="text" value="<?php echo $pushassist_setting_post_message;?>" name="pushassist_setting_post_message" placeholder="Notification Message When a Product is Published" maxlength="138" id="pushassist_setting_post_message" class="form-control margin-t-10 clearfix" required="">
+                            </div>
+                        </div>
+			 
+			  <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-8">
+                                <button type="submit" class="btn btn-default" value="Save Settings" name="psa-gcm-settings"><?php echo $this->__('Save Settings')?></button>
+                            </div>
+                        </div>
+		    </form>
                 </div>
             </div>
         </div>
@@ -311,8 +340,6 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
     </div>
 <script language="javascript">
 jQuery.noConflict();
-  
-
     jQuery("#template").on("change", function () {
 
         if(jQuery(this).val() == 8){
