@@ -6,7 +6,9 @@ class Webpushnotification_Pushassist_Model_Observer
 
         $product = $observer->getEvent()->getProduct();
 	$enable_notification=$product->getEnablePushNotification();
-	
+	$api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
+	$secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
+
 	// Custom Title
 	$product_custom_title=$product->getPushCustomTitle();
 	if($product_custom_title != ''){
@@ -94,7 +96,14 @@ class Webpushnotification_Pushassist_Model_Observer
 		}
  	}
 
-	if($enable_notification==1 &&$product->getStatus()==1 && $product->getVisibility()==4 ){
+
+	if(!empty($product->getPushSegment())){
+
+	    $response_array['segments'] =$product->getPushSegment();
+	}
+
+      
+	if($enable_notification==1 &&$product->getStatus()==1 && $product->getVisibility()==4 && $api_key != '' && $secret_key != ''){ 
 
 		 $result_array = Mage::helper('pushassist')->send_notification($response_array);
 	}

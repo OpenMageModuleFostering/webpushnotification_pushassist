@@ -92,6 +92,8 @@
                 $client_send_notification->setMethod(Zend_Http_Client::POST);
                 $client_send_notification->setRawData($send_notification_request_json);
                 $response_send_notification = $client_send_notification->request()->getBody();
+
+		
             } catch (Zend_Exception $e) {
                 $response_send_notification = "";
             }
