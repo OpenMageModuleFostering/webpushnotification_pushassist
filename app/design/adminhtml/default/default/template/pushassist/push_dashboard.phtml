@@ -2,7 +2,7 @@
 $check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
 $check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
 $dashboard_response = Mage::helper('pushassist')->get_dashboard();
-//print_r($dashboard_response);
+
 $account_response = Mage::helper('pushassist')->get_account_details();
 if(isset($account_response['account_name'])){
 $account_url='https://'.$account_response['account_name'].'.pushassist.com/dashboard/';
@@ -27,38 +27,46 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
             <div class="col-md-12">
                 <ul class="topstats clearfix">
                     <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa  fa-users"></i> <?php echo $this->__('Total Subscribers');?> </span>
-                        <h3><?php echo $dashboard_response['stats_subscribers']; ?></h3>
+                        <span class="title"><i class="fa  fa-users"></i> <?php echo $this->__('Subscribers');?> </span>
+                        <h3><?php echo $dashboard_response['active']+$dashboard_response['total_unsubscribed']; ?></h3>
+                      
+                    </li>
+		     <li class="col-xs-6 col-lg-2">
+                        <span class="title"><i class="fa  fa-bell"></i> <?php echo $this->__('Active');?> </span>
+                        <h3><?php echo $dashboard_response['active']; ?></h3>
+                      
+                    </li>
+		     <li class="col-xs-6 col-lg-2">
+                        <span class="title"><i class="fa  fa-bell-slash"></i> <?php echo $this->__('Unsubscribed');?> </span>
+                        <h3><?php echo $dashboard_response['total_unsubscribed']; ?></h3>
                       
                     </li>
 		    <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa fa-send"></i> <?php echo $this->__('Total Sent');?> </span>
+                        <span class="title"><i class="fa fa-send"></i> <?php echo $this->__('Sent');?> </span>
                         <h3 class="color-up"><?php echo $dashboard_response['stats_notification_sent']; ?></h3>
                         
                     </li>
                     <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa fa-check-square-o"></i> <?php echo $this->__('Total Clicks');?> </span>
-                        <h3 class="color-up"><?php echo $dashboard_response['stats_clicks']; ?></h3>
+                        <span class="title"><i class="fa fa-check-square-o"></i> <?php echo $this->__('Clicked');?> </span>
+                        <h3 class="color-up"><?php echo $dashboard_response['stats_clicks']; ?>&nbsp;(<?php $ctr=($dashboard_response['stats_clicks']*100)/$dashboard_response['stats_notification_sent'];
+			      echo round($ctr,2);?>%)</h3>
                         
                     </li>
+		    
 		    <?php if($account_response['planType']=='Paid'){ ?>
 		    <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa  fa-cogs"></i> <?php echo $this->__('Total Campaigns');?> </span>
+                        <span class="title"><i class="fa  fa-cogs"></i> <?php echo $this->__('Campaigns');?> </span>
                         <h3><?php echo $dashboard_response['stats_campaigns']; ?></h3>
 		    </li>
-		    <?php } ?>
-		    <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa  fa-send"></i> <?php echo $this->__('CTR');?> </span>
-                        <h3 class="color-up">
-			<?php $ctr=($dashboard_response['stats_clicks']*100)/$dashboard_response['stats_notification_sent'];
-			      echo round($ctr,2);?>%</h3>
-		    </li>
-
-                    <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa fa-sitemap"></i> <?php echo $this->__('Sites');?> </span>
-                        <h3 class="color-up"><?php echo $dashboard_response['sites_count']; ?></h3>
-						
+		    <?php }else{ ?>
+		     <li class="col-xs-6 col-lg-2">
+                        <span class="title"><i class="fa fa-eye"></i> <?php echo $this->__('Viewed');?> </span>
+                        <h3 class="color-up"><?php echo $dashboard_response['stats_notification_sent']; ?></h3>
+                        
                     </li>
+
+		    <?php } ?>
+		    
                 </ul>
             </div>
             <!-- Top Stats End -->
@@ -76,7 +84,7 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
             <div class="col-md-12">
                 <ul class="topstats clearfix">
 		    <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa  fa-users"></i> <?php echo $this->__('Total Subscribers');?> </span>
+                        <span class="title"><i class="fa  fa-users"></i> <?php echo $this->__('Subscribers');?> </span>
                         <h3><?php echo $dashboard_response['total_subscribers']; ?></h3>
 			<span class="diff">
                             <?php if ($dashboard_response['subscribers_change'] == 'negative') { ?>
@@ -87,8 +95,33 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
                                     
                                 </b> <?php echo $this->__('from last week');?></span>
                     </li>
+		    <li class="col-xs-6 col-lg-2">
+                        <span class="title"><i class="fa  fa-bell"></i> <?php echo $this->__('Active');?> </span>
+                        <h3><?php echo $dashboard_response['active_subscribers']; ?></h3>
+			<span class="diff">
+                            <?php if ($dashboard_response['active_subscribers_change'] == 'negative') { ?>
+                            <b class="color-down"><i class="fa fa-caret-down"></i> <?php echo $dashboard_response['active_subscribers_percentage']; ?>
+                                <?php } if ($dashboard_response['active_subscribers_change'] == 'positive') { ?>
+                                <b class="color-up"><i class="fa fa-caret-up"></i> <?php echo $dashboard_response['active_subscribers_percentage']; ?>
+                                    <?php } ?>%
+                                    
+                                </b> <?php echo $this->__('from last week');?></span>
+                    </li>
+		    <li class="col-xs-6 col-lg-2">
+                        <span class="title"><i class="fa  fa-bell-slash"></i> <?php echo $this->__('Unsubscribed');?> </span>
+                        <h3><?php echo $dashboard_response['unsubscribed']; ?></h3>
+			<span class="diff">
+                            <?php if ($dashboard_response['unsubscribed_change'] == 'negative') { ?>
+                            <b class="color-down"><i class="fa fa-caret-down"></i> <?php echo $dashboard_response['unsubscribed_percentage']; ?>
+                                <?php } if ($dashboard_response['unsubscribed_change'] == 'positive') { ?>
+                                <b class="color-up"><i class="fa fa-caret-up"></i> <?php echo $dashboard_response['unsubscribed_percentage']; ?>
+                                    <?php } ?>%
+                                    
+                                </b> <?php echo $this->__('from last week');?></span>
+                    </li>
+
                     <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa fa-send"></i> <?php echo $this->__('Total Delivered');?> </span>
+                        <span class="title"><i class="fa fa-send"></i> <?php echo $this->__('Sent');?> </span>
                         <h3><?php echo $dashboard_response['total_delivered']; ?></h3>
                         <span class="diff">
 						<?php if ($dashboard_response['delivered_change'] == 'negative') { ?>
@@ -103,7 +136,7 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
                     </li>
 
                     <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa fa-check-square-o"></i> <?php echo $this->__('Total Clicks');?> </span>
+                        <span class="title"><i class="fa fa-check-square-o"></i> <?php echo $this->__('Clicked');?> </span>
                         <h3 class="color-up"><?php echo $dashboard_response['total_clicks']; ?></h3>
                         <span class="diff">
                             <?php if ($dashboard_response['clicks_change'] == 'negative') { ?>
@@ -120,13 +153,13 @@ if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['e
                         <h3 class="color-up"><?php echo $dashboard_response['campaign_count']; ?></h3>
                         <span class="diff"><b class="color-down"></b> <?php echo $this->__('active this week');?></span>
                     </li>
-		    <?php } ?>		    
+		    <?php }else{ ?>		    
                     <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa  fa-send"></i> <?php echo $this->__('Segments');?> </span>
-                        <h3 class="color-up"><?php echo $dashboard_response['segment_count']; ?></h3>
+                        <span class="title"><i class="fa  fa-send"></i> <?php echo $this->__('Viewed');?> </span>
+                        <h3 class="color-up"><?php echo $dashboard_response['total_delivered']; ?></h3>
 						<span class="diff"><b class="color-down"></b> <?php echo $this->__('created');?> </span>
                     </li>
-
+		    <?php } ?>
                    
                 </ul>
             </div>

@@ -11,7 +11,7 @@ $get_subscribers = Mage::helper('pushassist')->get_subscribers();
 if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['error'] )) && $account_response) {
 
 ?>
-<?php if(count($get_subscribers) < 1) { ?>
+<?php if(count($get_subscribers) < 1) {  ?>
 
 <div id="messages"><ul class="messages"><li class="success-msg"><ul><li><span>PushAssist is installed, no additional step is needed. Completely <a href="<?php echo $this->getUrl('*/cache'); ?>" target="_blank">Purge Cache</a> once to see it in action.
 Your Account Details have already been emailed to you. Also check under SPAM if you don't find it.</span></li></ul></li></ul></div>
@@ -46,8 +46,47 @@ Your Account Details have already been emailed to you. Also check under SPAM if 
             <!-- Top Stats Start -->
             <div class="col-md-12">
                 <ul class="topstats clearfix">
+
+		    <li class="col-xs-6 col-lg-2">
+                        <span class="title"><i class="fa  fa-users"></i> <?php echo $this->__('Subscribers');?> </span>
+                        <h3><?php echo $dashboard_response['total_subscribers']; ?></h3>
+			<span class="diff">
+                            <?php if ($dashboard_response['subscribers_change'] == 'negative') { ?>
+                            <b class="color-down"><i class="fa fa-caret-down"></i> <?php echo $dashboard_response['subscribers_percentage']; ?>
+                                <?php } if ($dashboard_response['subscribers_change'] == 'positive') { ?>
+                                <b class="color-up"><i class="fa fa-caret-up"></i> <?php echo $dashboard_response['subscribers_percentage']; ?>
+                                    <?php } ?>%
+                                    
+                                </b> <?php echo $this->__('from last week');?></span>
+                    </li>
+		    <li class="col-xs-6 col-lg-2">
+                        <span class="title"><i class="fa  fa-bell"></i> <?php echo $this->__('Active');?> </span>
+                        <h3><?php echo $dashboard_response['active_subscribers']; ?></h3>
+			<span class="diff">
+                            <?php if ($dashboard_response['active_subscribers_change'] == 'negative') { ?>
+                            <b class="color-down"><i class="fa fa-caret-down"></i> <?php echo $dashboard_response['active_subscribers_percentage']; ?>
+                                <?php } if ($dashboard_response['active_subscribers_change'] == 'positive') { ?>
+                                <b class="color-up"><i class="fa fa-caret-up"></i> <?php echo $dashboard_response['active_subscribers_percentage']; ?>
+                                    <?php } ?>%
+                                    
+                                </b> <?php echo $this->__('from last week');?></span>
+                    </li>
+		    <li class="col-xs-6 col-lg-2">
+                        <span class="title"><i class="fa fa-bell-slash"></i> <?php echo $this->__('Unsubscribed');?> </span>
+                        <h3><?php echo $dashboard_response['unsubscribed']; ?></h3>
+                        <span class="diff">
+						<?php if ($dashboard_response['unsubscribed_change'] == 'negative') { ?>
+						<b class="color-down"><i class="fa fa-caret-down"></i> <?php echo $dashboard_response['unsubscribed_percentage']; ?>
+						<?php }
+						if ($dashboard_response['unsubscribed_change'] == 'positive') { ?>
+						<b class="color-up"><i class="fa fa-caret-up"></i> <?php echo $dashboard_response['unsubscribed_percentage']; ?>
+							<?php } ?>%
+
+						
+						</b> <?php echo $this->__('from last week');?></span>
+                    </li>
                     <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa fa-send"></i> <?php echo $this->__('Total Delivered');?> </span>
+                        <span class="title"><i class="fa fa-send"></i> <?php echo $this->__('Sent');?> </span>
                         <h3><?php echo $dashboard_response['total_delivered']; ?></h3>
                         <span class="diff">
 						<?php if ($dashboard_response['delivered_change'] == 'negative') { ?>
@@ -62,7 +101,7 @@ Your Account Details have already been emailed to you. Also check under SPAM if 
                     </li>
 
                     <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa fa-check-square-o"></i> <?php echo $this->__('Total Clicks');?> </span>
+                        <span class="title"><i class="fa fa-check-square-o"></i> <?php echo $this->__('Clicked');?> </span>
                         <h3 class="color-up"><?php echo $dashboard_response['total_clicks']; ?></h3>
                         <span class="diff">
                             <?php if ($dashboard_response['clicks_change'] == 'negative') { ?>
@@ -74,38 +113,23 @@ Your Account Details have already been emailed to you. Also check under SPAM if 
                                 </b> <?php echo $this->__('from last week');?></span>
                     </li>
 
-                    <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa  fa-users"></i> <?php echo $this->__('Total Subscribers');?> </span>
-                        <h3><?php echo $dashboard_response['total_subscribers']; ?></h3>
-			<span class="diff">
-                            <?php if ($dashboard_response['subscribers_change'] == 'negative') { ?>
-                            <b class="color-down"><i class="fa fa-caret-down"></i> <?php echo $dashboard_response['subscribers_percentage']; ?>
-                                <?php } if ($dashboard_response['subscribers_change'] == 'positive') { ?>
-                                <b class="color-up"><i class="fa fa-caret-up"></i> <?php echo $dashboard_response['subscribers_percentage']; ?>
-                                    <?php } ?>%
-                                    
-                                </b> <?php echo $this->__('from last week');?></span>
-                    </li>
-
                     
 
+                    
+<?php if($account_response['planType']=='Paid'){ ?>
                     <li class="col-xs-6 col-lg-2">
                         <span class="title"><i class="fa  fa-cogs"></i> <?php echo $this->__('Campaigns');?> </span>
                         <h3 class="color-up"><?php echo $dashboard_response['campaign_count']; ?></h3>
                         <span class="diff"><b class="color-down"></b> <?php echo $this->__('active this week');?></span>
                     </li>
-					
+			<?php }else{?>		
                     <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa  fa-send"></i> <?php echo $this->__('Segments');?> </span>
-                        <h3 class="color-up"><?php echo $dashboard_response['segment_count']; ?></h3>
+                        <span class="title"><i class="fa  fa-send"></i> <?php echo $this->__('Viewed');?> </span>
+                        <h3 class="color-up"><?php echo $dashboard_response['total_delivered']; ?></h3>
 						<span class="diff"><b class="color-down"></b> <?php echo $this->__('created');?> </span>
                     </li>
-
-                    <li class="col-xs-6 col-lg-2">
-                        <span class="title"><i class="fa fa-sitemap"></i> <?php echo $this->__('Sites');?> </span>
-                        <h3 class="color-up"><?php echo $dashboard_response['sites_count']; ?></h3>
-						<span class="diff"><b class="color-down"></b><?php echo $this->__('registered');?></span>
-                    </li>
+<?php } ?>
+                   
                 </ul>
             </div>
             <!-- Top Stats End -->
@@ -134,7 +158,7 @@ Your Account Details have already been emailed to you. Also check under SPAM if 
                                 <td><?php echo $this->__('Message');?></td>
 				<td><?php echo $this->__('Total Sent');?></td>
                                 <td><?php echo $this->__('Delivered');?></td>
-                                <td><?php echo $this->__('Failed');?></td>
+                                <td><?php echo $this->__('Unsubscribed');?></td>
                                 <td><?php echo $this->__('Clicked');?></td>
 				<td><?php echo $this->__('Created Date');?></td>
 				<td><?php echo $this->__('Is Campaign');?></td>
