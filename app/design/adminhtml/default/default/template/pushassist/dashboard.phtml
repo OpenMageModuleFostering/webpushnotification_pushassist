@@ -11,7 +11,7 @@ $get_subscribers = Mage::helper('pushassist')->get_subscribers();
 if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['error'] )) && $account_response) {
 
 ?>
-<?php if(count($get_subscribers) < 1) { ?>
+<?php if(count($get_subscribers) < 1) {  ?>
 
 <div id="messages"><ul class="messages"><li class="success-msg"><ul><li><span>PushAssist is installed, no additional step is needed. Completely <a href="<?php echo $this->getUrl('*/cache'); ?>" target="_blank">Purge Cache</a> once to see it in action.
 Your Account Details have already been emailed to you. Also check under SPAM if you don't find it.</span></li></ul></li></ul></div>
