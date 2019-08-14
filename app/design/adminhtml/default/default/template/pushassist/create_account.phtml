@@ -2,19 +2,23 @@
 $check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
 $check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
 $account_response = Mage::helper('pushassist')->get_account_details();
+if(isset($account_response['account_name'])){
 $account_url='https://'.$account_response['account_name'].'.pushassist.com/dashboard/';
 $allsites='https://'.$account_response['account_name'].'.pushassist.com/allsites/';
+}
 ?>
 <div id="Psidebar" >
   <ul>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>">Dashboard</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>">Notifications</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>">Send Notification</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>">Segments</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>">Create Segment</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>">Subscribers</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_campaign'); ?>">Campaigns</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>"><?php echo $this->__('Create an Account');?></a></li>
+    <!--<li><a href="<?php //echo $this->getUrl('*/pushassist_dashboard'); ?>">Dashboard</a></li>
+    <li><a href="<?php //echo $this->getUrl('*/pushassist_notificationmain'); ?>">Notifications</a></li>
+    <li><a href="<?php //echo $this->getUrl('*/pushassist_notificationsend'); ?>">Send Notification</a></li>
+    <li><a href="<?php //echo $this->getUrl('*/pushassist_segments'); ?>">Segments</a></li>
+    <li><a href="<?php //echo $this->getUrl('*/pushassist_createsegments'); ?>">Create Segments</a></li>
+    <li><a href="<?php //echo $this->getUrl('*/pushassist_subscribers'); ?>">Subscribers</a></li>
+     <li><a href="<?php //echo $this->getUrl('*/pushassist_settings'); ?>">Settings</a></li>
+    <li><a href="<?php //echo $this->getUrl('*/pushassist_campaign'); ?>">Campaigns</a></li>
+   -->
   </ul>
   </div>
 <!-- Content Start -->
@@ -23,7 +27,7 @@ $allsites='https://'.$account_response['account_name'].'.pushassist.com/allsites
 
         <!-- Start Page Header -->
         <div class="page-header">
-            <h1 class="title">Create Account</h1>
+            <h1 class="title"><?php echo $this->__('Create Account');?></h1>
         </div>
         <!-- End Page Header -->
 
@@ -31,7 +35,7 @@ $allsites='https://'.$account_response['account_name'].'.pushassist.com/allsites
         <div class="container-widget clearfix">
             <div class="alert alert-danger alert-dismissable" id="pushassist_error" style="display: none"></div>
             <div class="col-md-6" style="<?php if(isset($account_response['account_name'])) { echo 'display:none'; }?>">
-	      <h3>Create an Account</h3>
+	      <h3><?php echo $this->__('Create an Account');?></h3>
                 <div class="panel panel-default">
                     <div class="panel-body">
 		      <form name="registration_form" id="registration_form" class="space-top" action="<?php echo $this->getUrl('*/*/createaccount'); ?>" method="post">
@@ -105,7 +109,7 @@ $allsites='https://'.$account_response['account_name'].'.pushassist.com/allsites
 			    <div class="col-sm-12">
 			    <div class="form-group">
                                 <div>
-                                    <button type="submit" class="btn btn-default">Create Account</button>
+                                    <button type="submit" class="btn btn-default"><?php echo $this->__('Create Account');?></button>
                                 </div>
 			    </div>
 			    </div>
@@ -139,7 +143,7 @@ $allsites='https://'.$account_response['account_name'].'.pushassist.com/allsites
 			<div class="col-sm-12">
                        <div class="form-group">
                                 <div class="">
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                    <button type="submit" class="btn btn-default"><?php echo $this->__('Submit');?></button>
                                 </div>
 			</div>
 			</div>
@@ -148,7 +152,7 @@ $allsites='https://'.$account_response['account_name'].'.pushassist.com/allsites
                     </form>
                     </div>
                 </div>
-		<h3>How to get API Keys</h3>
+		<h3><?php echo $this->__('How to get API Keys');?></h3>
 		<div class="panel panel-default">
 		     
 			   If you are an existing user of PushAssist you can find your api keys under your PushAssit control panel.To get your API and Secret
@@ -159,31 +163,21 @@ $allsites='https://'.$account_response['account_name'].'.pushassist.com/allsites
 
 	    <hr>
 <br>
-<p><strong>What is a GCM Key? How do I get export my subscribers, What if I want to switch to other
-                            vendor.</strong></p>
-                    <p class="margin-b-15 margin-t-15">At the time of installation, you have to provide your GCM (Google
-                        Cloud Messaging) API Key for Chrome and Certificate Details for Safari that is used.</p>
-                    <p>We need this information to export your subscriber’s ID’s. Please note that only premium accounts
-                        can export the subscribers.</p>
-                    <p class="margin-b-15 margin-t-15">Please read <a href="https://pushassist.com/adding-your-own-gcm-key-project-id-in-pushassist/" target="_blank"> GCM registration </a> guidelines here.</p>
+		    <p><strong><?php echo $this->__('What is a GCM Key? How do I get export my subscribers, What if I want to switch to other vendor.');?></strong></p>
+                    <p class="margin-b-15 margin-t-15">
+			<?php echo $this->__('At the time of installation, you have to provide your GCM (Google
+                        Cloud Messaging) API Key for Chrome and Certificate Details for Safari that is used.');?>
+			</p>
+			<p><?php echo $this->__('We need this information to export your subscriber’s ID’s. Please note that only premium accounts
+                        can export the subscribers.');?></p>
+                    <p class="margin-b-15 margin-t-15">Please read <a href="https://pushassist.com/adding-your-own-gcm-key-project-id-in-pushassist/" target="_blank">
+		      <?php echo $this->__('GCM registration');?> </a><?php echo $this->__('guidelines here.');?> </p>
                 
 
 
 		</div>
             </div><!-- col-md-6-->
-	    <div class="col-md-6" style="<?php if(!isset($account_response['account_name'])) { echo 'display:none'; }?>">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <p>Screenshot of advance configurations that are possible with your PushAssist account. &nbsp;&nbsp;&nbsp;
-
-                        <a href="<?php echo $allsites;?>" class="btn btn-default margin-t-0" target="_blank">Customize Now</a></p>
-
-                    <div class="margin-t-15 image_wrapper">
-                        <img src="<?php echo $this->getSkinUrl('pushassist/notification_setting.png') ?>" alt="Notification Opt-in Box Setting">
-                    </div>
-                </div>
-            </div>
-        </div>
+	    
         </div><!-- Container End -->
         
     </div>

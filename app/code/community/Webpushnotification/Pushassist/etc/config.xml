@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Webpushnotification_Pushassist>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
     </Webpushnotification_Pushassist>
   </modules>
   <global>
@@ -67,7 +67,7 @@
 			<action>adminhtml/pushassist_segments</action>
 		  </segments>
 		  <createsegments module="pushassist">
-			<title>Create Segment</title>
+			<title>Create Segments</title>
 			<sort_order>5</sort_order>
 			<action>adminhtml/pushassist_createsegments</action>
 		  </createsegments>
@@ -76,11 +76,17 @@
 			<sort_order>6</sort_order>
 			<action>adminhtml/pushassist_subscribers</action>
 		  </subscribers>
+		  <settings module="pushassist">
+			<title>Settings</title>
+			<sort_order>7</sort_order>
+			<action>adminhtml/pushassist_settings</action>
+		  </settings>
 		  <campaign module="pushassist">
 			<title>Campaigns</title>
-			<sort_order>7</sort_order>
+			<sort_order>8</sort_order>
 			<action>adminhtml/pushassist_campaign</action>
 		  </campaign>
+		  
 		 <!-- <createcampaign module="pushassist">
 			<title>Create Campaign</title>
 			<sort_order>8</sort_order>
@@ -116,14 +122,18 @@
 				<title>Segments</title>
 			  </segments>
 			  <createsegments translate="title">
-				<title>Create Segment</title>
+				<title>Create Segments</title>
 			  </createsegments>
 			  <subscribers translate="title">
 				<title>Subscribers</title>
 			  </subscribers>
+			  <settings translate="title">
+				<title>Settings</title>
+			  </settings>
 			 <campaign translate="title">
 				<title>Campaign</title>
 			  </campaign>
+			  
 			   <!--<createcampaign translate="title">
 				<title>Create Campaign</title>
 			  </createcampaign>-->
@@ -140,5 +150,14 @@
 		</pushassist>
 	  </updates>
 	</layout>
+	<translate>
+            <modules>
+                <Webpushnotification_Pushassist>
+                    <files>
+                        <default>Webpushnotification_Pushassist.csv</default>
+                    </files>
+                </Webpushnotification_Pushassist>
+            </modules>
+        </translate>
   </adminhtml>
 </config> 

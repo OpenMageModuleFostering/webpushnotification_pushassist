@@ -13,7 +13,7 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_NotificationsendContro
 
 		
 		if(isset($_FILES['fileupload']['name']) && $_FILES['fileupload']['name'] != '') {
-			  
+			$baseurl=Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true );
 			$uploader = new Varien_File_Uploader('fileupload');
 			$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
 			$uploader->setAllowRenameFiles(false);
@@ -23,7 +23,9 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_NotificationsendContro
 			$path = Mage::getBaseDir('media').DS.'pushassist'.DS;
 			$uploader->save($path, $new_file_name);
 			$post['fileupload'] = 'pushassist'.DS.$new_file_name; 
-			$full_image_path=Mage::getBaseUrl().'media/pushassist/'.$new_file_name;
+			$full_image_path=$baseurl.'media/pushassist/'.$new_file_name;
+		}else{
+			$full_image_path='';
 		}
 
  	    

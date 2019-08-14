@@ -2,8 +2,9 @@
 $check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
 $check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
 $account_response = Mage::helper('pushassist')->get_account_details();
+if(isset($account_response['account_name'])){
 $account_url='https://'.$account_response['account_name'].'.pushassist.com/dashboard/';
-
+}
 if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] == '' && $account_response) {
 ?>
 <form action="<?php echo $this->getUrl('*/*/sendcampaign'); ?>" method="post" name="campaign" enctype='multipart/form-data'>
@@ -11,14 +12,15 @@ if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] =
 <!-- Content Start -->
 <div id="Psidebar" >
  <ul>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>">Dashboard</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>">Notifications</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>">Send Notification</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>">Segments</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>">Create Segment</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>">Subscribers</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_campaign'); ?>">Campaigns</a></li>
+    <!--<li><a href="<?php //echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>-->
+    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>"><?php echo $this->__('Dashboard')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>"><?php echo $this->__('Notifications')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>"><?php echo $this->__('Send Notification')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>"><?php echo $this->__('Segments')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>"><?php echo $this->__('Create Segments')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>"><?php echo $this->__('Subscribers')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_settings'); ?>"><?php echo $this->__('Settings')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_campaign'); ?>"><?php echo $this->__('Campaigns')?></a></li>
   </ul>
   </div>
     <div id="pushassist" class="content clearfix">

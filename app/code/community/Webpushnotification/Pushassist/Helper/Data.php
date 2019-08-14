@@ -192,6 +192,39 @@ class Webpushnotification_Pushassist_Helper_Data extends Mage_Core_Helper_Abstra
 	return  json_decode($response_add_campaigns,true);
     }
   
+    public function gcm_setting($gcm_setting_response_array){
+
+	$check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
+	$check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
+	$gcm_request_json = json_encode($gcm_setting_response_array);
+	$gcm_setting = new Zend_Http_Client();   
+	$gcm_setting->setUri('https://api.pushassist.com/gcmsettings/'); 
+	$gcm_setting->setHeaders('X-Auth-Token', $check_api_key);
+	$gcm_setting->setHeaders('X-Auth-Secret', $check_secret_key); 
+	$gcm_setting->setHeaders(Zend_Http_Client::CONTENT_TYPE, 'application/json'); 
+	$gcm_setting->setMethod(Zend_Http_Client::POST);   
+	$gcm_setting->setRawData($gcm_request_json);   
+	$response_gcm_setting = $gcm_setting->request()->getBody();
+	return  json_decode($response_gcm_setting,true);
+
+    }
+
+    public function settings($settings_response_array){
+
+	$check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
+	$check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
+	$settings_request_json = json_encode($settings_response_array);
+	$settings = new Zend_Http_Client();   
+	$settings->setUri('https://api.pushassist.com/settings/'); 
+	$settings->setHeaders('X-Auth-Token', $check_api_key);
+	$settings->setHeaders('X-Auth-Secret', $check_secret_key); 
+	$settings->setHeaders(Zend_Http_Client::CONTENT_TYPE, 'application/json'); 
+	$settings->setMethod(Zend_Http_Client::POST);   
+	$settings->setRawData($settings_request_json);   
+	$response_settings = $settings->request()->getBody();
+	return  json_decode($response_settings,true);
+
+    }
 
 }
 	 
