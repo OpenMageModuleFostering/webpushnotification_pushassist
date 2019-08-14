@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Webpushnotification_Pushassist>
-      <version>1.0.1</version>
+      <version>1.0.10</version>
     </Webpushnotification_Pushassist>
   </modules>
   <global>
@@ -11,17 +11,45 @@
         <class>Webpushnotification_Pushassist_Helper</class>
       </pushassist>
     </helpers>
+    <models>
+	<pushassist>
+                <class>Webpushnotification_Pushassist_Model</class>
+		
+            </pushassist>   
+         
+        </models>
+        <resources>
+            <pushassist_setup>
+                <setup>
+                    <module>Webpushnotification_Pushassist</module>		  
+		    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>	
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pushassist_setup>          	 
+        </resources>
 	<blocks>
 	  <pushassist>
 		<class>Webpushnotification_Pushassist_Block</class>
 	  </pushassist>
-	  <googleanalytics>
+	 <googleanalytics>
                 <rewrite>
                      <ga>Webpushnotification_Pushassist_Block_Script</ga>
                 </rewrite>                     
 	  </googleanalytics>
 	</blocks>
-	
+	<events>
+            <admin_system_config_changed_section_pushassistsection>
+                <observers>
+                    <notification_observer>
+                        <type>singleton</type>
+                        <class>Webpushnotification_Pushassist_Model_Observer</class>
+                        <method>handle_adminSystemConfigChangedSection</method>
+                    </notification_observer>
+                </observers>
+            </admin_system_config_changed_section_pushassistsection>
+        </events>
   </global>
   <admin>
     <routers>
@@ -67,7 +95,7 @@
 			<action>adminhtml/pushassist_segments</action>
 		  </segments>
 		  <createsegments module="pushassist">
-			<title>Create Segment</title>
+			<title>Create Segments</title>
 			<sort_order>5</sort_order>
 			<action>adminhtml/pushassist_createsegments</action>
 		  </createsegments>
@@ -76,16 +104,16 @@
 			<sort_order>6</sort_order>
 			<action>adminhtml/pushassist_subscribers</action>
 		  </subscribers>
-		  <!--<campaign module="pushassist">
-			<title>Campaign</title>
+		  <settings module="pushassist">
+			<title>Settings</title>
 			<sort_order>7</sort_order>
+			<action>adminhtml/pushassist_settings</action>
+		  </settings>
+		  <campaign module="pushassist">
+			<title>Campaigns</title>
+			<sort_order>8</sort_order>
 			<action>adminhtml/pushassist_campaign</action>
 		  </campaign>
-		  <createcampaign module="pushassist">
-			<title>Create Campaign</title>
-			<sort_order>8</sort_order>
-			<action>adminhtml/pushassist_createcampaign</action>
-		  </createcampaign>-->
 		</children>
 	  </pushassist>
 	</menu>
@@ -116,17 +144,17 @@
 				<title>Segments</title>
 			  </segments>
 			  <createsegments translate="title">
-				<title>Create Segment</title>
+				<title>Create Segments</title>
 			  </createsegments>
 			  <subscribers translate="title">
 				<title>Subscribers</title>
 			  </subscribers>
-			  <!--<campaign translate="title">
+			  <settings translate="title">
+				<title>Settings</title>
+			  </settings>
+			 <campaign translate="title">
 				<title>Campaign</title>
 			  </campaign>
-			  <createcampaign translate="title">
-				<title>Create Campaign</title>
-			  </createcampaign>-->
 			  </children>
 			</pushassist>
 		  </children>
@@ -140,5 +168,31 @@
 		</pushassist>
 	  </updates>
 	</layout>
+	<translate>
+            <modules>
+                <Webpushnotification_Pushassist>
+                    <files>
+                        <default>Webpushnotification_Pushassist.csv</default>
+                    </files>
+                </Webpushnotification_Pushassist>
+            </modules>
+        </translate>
+         <events>
+           <catalog_product_save_after>
+                <observers>
+                    <pushnotification_new_product>
+                        <class>Webpushnotification_Pushassist_Model_Observer</class>
+                        <method>addNewproduct</method>
+                    </pushnotification_new_product>
+                </observers>
+            </catalog_product_save_after>
+        </events>
   </adminhtml>
+  <default>
+    <pushassistsection>
+	<general>
+	  <pushassist_setting_post_message>We are pleased to annouce the launch of our brand new product. Check it out!</pushassist_setting_post_message>
+	</general>	
+    </pushassistsection>
+    </default>
 </config> 

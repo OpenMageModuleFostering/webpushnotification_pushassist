@@ -2,8 +2,9 @@
 $check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
 $check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
 $account_response = Mage::helper('pushassist')->get_account_details();
-$account_url='https://'.$account_response['account_name'].'.pushassist.com/login/';
-
+if(isset($account_response['account_name'])){
+$account_url='https://'.$account_response['account_name'].'.pushassist.com/dashboard/';
+}
 if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] == '' && $account_response) {
 ?>
 <form action="<?php echo $this->getUrl('*/*/sendcampaign'); ?>" method="post" name="campaign" enctype='multipart/form-data'>
@@ -11,15 +12,14 @@ if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] =
 <!-- Content Start -->
 <div id="Psidebar" >
  <ul>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>">Dashboard</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>">Notifications</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>">Send Notification</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>">Segments</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>">Create Segment</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>">Subscribers</a></li>
-    <li><p><?php echo $account_response['planType'];?>&nbsp;&nbsp;<a href="<?php echo $account_url;?>" target="_blank">Upgrade Now</a> </p></li>
-    <li><p>You have <?php echo $account_response['subscribers_remain'];?> subsribers left</p></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>"><?php echo $this->__('Dashboard')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>"><?php echo $this->__('Notifications')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>"><?php echo $this->__('Send Notification')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>"><?php echo $this->__('Segments')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>"><?php echo $this->__('Create Segments')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>"><?php echo $this->__('Subscribers')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_settings'); ?>"><?php echo $this->__('Settings')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_campaign'); ?>"><?php echo $this->__('Campaigns')?></a></li>
   </ul>
   </div>
     <div id="pushassist" class="content clearfix">
@@ -58,16 +58,7 @@ if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] =
                                     <input type="url"  required="required" class="form-control" id="url" name="url" placeholder="Enter a URL to push your subscribers to (yoursite.com)" maxlength="250" />
                                 </div>
                             </div>
-                            <!--<div class="form-group">
-                                <label class="col-sm-3 control-label form-label">Campaign Date</label>
-
-                                <div class="col-sm-9 input-group date" form_datetime id="form_datetime" data-date="" data-date-format="dd MM yyyy , HH:ii" data-link-field="date">
-                                    <input  size="16" type="text" value="" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker">
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                                </div>
-                                <input type="hidden" id="date" name="date" value="" />
-                            </div>-->
+                           
                             <div class="form-group margin-b-0">
                                 <label for="focusedinput" class="col-sm-3 control-label form-label">Notification Logo</label>    
                                 <div class="col-sm-9">
@@ -129,10 +120,6 @@ if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] =
                                 <div class="col-sm-offset-3 col-sm-1 col-xs-3">
                                     <button type="submit" class="btn btn-default">Send</button>
                                 </div>
-
-                                <!--<div class="col-sm-2 margin-l-30 col-xs-7">
-                                    <input type="submit" class="btn btn-default s_draft" value="Save Draft">
-                                </div>-->
                             </div>
                         <!--</form>-->
                     </div>

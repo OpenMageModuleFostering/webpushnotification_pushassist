@@ -1,34 +1,35 @@
 <?php 
-
 $get_segment = Mage::helper('pushassist')->get_segments();
-
 $check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
 $check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
 $account_response = Mage::helper('pushassist')->get_account_details();
-$account_url='https://'.$account_response['account_name'].'.pushassist.com/login/';
-
-if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] == '' && $account_response) {
+if(isset($account_response['account_name'])){
+$account_url='https://'.$account_response['account_name'].'.pushassist.com/dashboard/';
+}
+if($check_api_key!='' && $check_secret_key != '' && (!isset($account_response['error'] )) && $account_response) {
 
 //print_r($get_segment);
 ?>
 <div id="Psidebar" >
  <ul>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>">Dashboard</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>">Notifications</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>">Send Notification</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>">Segments</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>">Create Segment</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>">Subscribers</a></li>
-    <li><p><?php echo $account_response['planType'];?>&nbsp;&nbsp;<a href="<?php echo $account_url;?>" target="_blank">Upgrade Now</a> </p></li>
-    <li><p>You have <?php echo $account_response['subscribers_remain'];?> subsribers left</p></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>"><?php echo $this->__('Dashboard')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>"><?php echo $this->__('Notifications')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>"><?php echo $this->__('Send Notification')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>"><?php echo $this->__('Segments')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>"><?php echo $this->__('Create Segments')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>"><?php echo $this->__('Subscribers')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_settings'); ?>"><?php echo $this->__('Settings')?></a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_campaign'); ?>"><?php echo $this->__('Campaigns')?></a></li>
   </ul>
   </div>
 <!-- Content Start -->
     <div id="pushassist" class="content dashboard clearfix">
         <!-- Start Page Header -->
         <div class="page-header">
-            <h1 class="title">Segments</h1>
+            <h1 class="title"><?php echo $this->__('Segment Details')?></h1>
+	    <div class="sub_count">
+		<a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>"><?php echo $this->__('Add New')?></a>
+	    </div>
         </div>
         <!-- End Page Header -->
 
@@ -40,10 +41,7 @@ if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] =
             <div class="col-md-12 col-lg-12">
                 <div class="panel panel-widget">
 		    <?php if(count($get_segment) > 0){ ?>
-                    <div class="panel-title">
-                        Total <span class="label label-info"><?php echo count($get_segment);?></span> Segments
-                       
-                    </div>
+                   
                     <div class="panel-search">
                         <form>
                             <input type="text" class="form-control" placeholder="Search...">
@@ -55,9 +53,9 @@ if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] =
                             <thead>
                             <tr>
                                 <td>#</td>
-                                <td>Segment Name</td>
-				<td>Subscribers Count</td>
-                                <td>Created Date</td>
+                                <td><?php echo $this->__('Segment Name')?></td>
+				<td><?php echo $this->__('Subscribers Count')?></td>
+                                <td><?php echo $this->__('Created Date')?></td>
                             </tr>
                             </thead>
                             <tbody>
@@ -76,7 +74,7 @@ if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] =
                             </tbody>
                         </table>
                     </div>
-		    <?php }else{ echo "No result Found";}?>
+		    <?php }else{ echo $this->__('No result Found');}?>
                 </div>
             </div>
             <!-- Project Stats End -->

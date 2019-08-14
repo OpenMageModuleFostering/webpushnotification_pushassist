@@ -2,28 +2,23 @@
 $check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
 $check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
 $account_response = Mage::helper('pushassist')->get_account_details();
-$account_url='https://'.$account_response['account_name'].'.pushassist.com/login/';
+if(isset($account_response['account_name'])){
+$account_url='https://'.$account_response['account_name'].'.pushassist.com/dashboard/';
+$allsites='https://'.$account_response['account_name'].'.pushassist.com/allsites/';
+}
 ?>
 <div id="Psidebar" >
   <ul>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>">Dashboard</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>">Notifications</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>">Send Notification</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>">Segments</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>">Create Segment</a></li>
-    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>">Subscribers</a></li>
-    <?php if(isset($account_response['planType'])) { ?>
-    <li><p><?php echo $account_response['planType'];?>&nbsp;&nbsp;<a href="<?php echo $account_url;?>" target="_blank">Upgrade Now</a> </p></li>
-    <li><p>You have <?php echo $account_response['subscribers_remain'];?> subsribers left</p></li>
-    <?php } ?>
-  </ul>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>"><?php echo $this->__('Create an Account');?></a></li>
+ </ul>
   </div>
 <!-- Content Start -->
+
     <div id="pushassist" class="content clearfix">
+
         <!-- Start Page Header -->
         <div class="page-header">
-            <h1 class="title">Create Account</h1>
+            <h1 class="title"><?php echo $this->__('Create Account');?></h1>
         </div>
         <!-- End Page Header -->
 
@@ -31,7 +26,7 @@ $account_url='https://'.$account_response['account_name'].'.pushassist.com/login
         <div class="container-widget clearfix">
             <div class="alert alert-danger alert-dismissable" id="pushassist_error" style="display: none"></div>
             <div class="col-md-6" style="<?php if(isset($account_response['account_name'])) { echo 'display:none'; }?>">
-	      <h3>Create an Account</h3>
+	      <h3><?php echo $this->__('Create an Account');?></h3>
                 <div class="panel panel-default">
                     <div class="panel-body">
 		      <form name="registration_form" id="registration_form" class="space-top" action="<?php echo $this->getUrl('*/*/createaccount'); ?>" method="post">
@@ -105,7 +100,7 @@ $account_url='https://'.$account_response['account_name'].'.pushassist.com/login
 			    <div class="col-sm-12">
 			    <div class="form-group">
                                 <div>
-                                    <button type="submit" class="btn btn-default">Create Account</button>
+                                    <button type="submit" class="btn btn-default"><?php echo $this->__('Create Account');?></button>
                                 </div>
 			    </div>
 			    </div>
@@ -139,16 +134,16 @@ $account_url='https://'.$account_response['account_name'].'.pushassist.com/login
 			<div class="col-sm-12">
                        <div class="form-group">
                                 <div class="">
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                    <button type="submit" class="btn btn-default"><?php echo $this->__('Submit');?></button>
                                 </div>
 			</div>
 			</div>
-                        <!-- Validation Response -->
+                       
                         <div class="response-holder"></div>
                     </form>
                     </div>
                 </div>
-		<h3>How to get API Keys</h3>
+		<h3><?php echo $this->__('How to get API Keys');?></h3>
 		<div class="panel panel-default">
 		     
 			   If you are an existing user of PushAssist you can find your api keys under your PushAssit control panel.To get your API and Secret
@@ -156,8 +151,24 @@ $account_url='https://'.$account_response['account_name'].'.pushassist.com/login
 	    paste above.Your account login details were sent to you at the time of signup. In case you have missed your account credentials.
 	    please send us an email at support@pushassist.com containing your site url and we will send you your account credentials.</br></br>
 	    <p>Please do not share your API and Secret keys with anyone.</p>
+
+	    <hr>
+<br>
+		    <p><strong><?php echo $this->__('What is a GCM Key? How do I get export my subscribers, What if I want to switch to other vendor.');?></strong></p>
+                    <p class="margin-b-15 margin-t-15">
+			<?php echo $this->__('At the time of installation, you have to provide your GCM (Google
+                        Cloud Messaging) API Key for Chrome and Certificate Details for Safari that is used.');?>
+			</p>
+			<p><?php echo $this->__('We need this information to export your subscriber’s ID’s. Please note that only premium accounts
+                        can export the subscribers.');?></p>
+                    <p class="margin-b-15 margin-t-15">Please read <a href="https://pushassist.com/adding-your-own-gcm-key-project-id-in-pushassist/" target="_blank">
+		      <?php echo $this->__('GCM registration');?> </a><?php echo $this->__('guidelines here.');?> </p>
+                
+
+
 		</div>
-            </div>
+            </div><!-- col-md-6-->
+	    
         </div><!-- Container End -->
         
     </div>
