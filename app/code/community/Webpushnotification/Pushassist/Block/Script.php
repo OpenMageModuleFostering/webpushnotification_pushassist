@@ -5,14 +5,13 @@ class Webpushnotification_Pushassist_Block_Script extends Mage_GoogleAnalytics_B
 
 	$account_response = Mage::helper('pushassist')->get_account_details();
 
-
-	$html=parent::_toHtml();
-	if($account_response['error'] == '' && $account_response){
-	  $subdomain_name=$account_response['account_name'];
-	 $jsPath= 'https://cdn.pushassist.com/account/assets/psa-'.$subdomain_name.'.js';
-	    //$jsPath=$account_response['jsPath'];
-	      $html .= '<script src="'.$jsPath.'"></script>';
-	      
+	if($account_response['error'] == ''){
+	    $html=parent::_toHtml();
+	    $subdomain_name=$account_response['account_name'];
+	    $jsPath= 'https://cdn.pushassist.com/account/assets/psa-'.$subdomain_name.'.js';
+	    $html .= '<script src="'.$jsPath.'"></script>';
+	}else{
+	    $html=parent::_toHtml();
 	}
 	return $html;
     }

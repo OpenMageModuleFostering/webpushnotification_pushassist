@@ -21,7 +21,6 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_NotificationsendContro
 			$random_digit=rand(0000,9999);
 			$ext = substr($_FILES['fileupload']['name'], strrpos($_FILES['fileupload']['name'], '.') + 1);
 			$new_file_name = 'webpush' . time() . '.' . $ext;
-			//$new_file_name=$random_digit.$_FILES['fileupload']['name'];
 			$path = Mage::getBaseDir('media').DS.'pushassist'.DS;
 			$uploader->save($path, $new_file_name);
 			$post['fileupload'] = 'pushassist'.DS.$new_file_name; 
@@ -33,7 +32,6 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_NotificationsendContro
  	    
 
 	    $response_array = array("notification" => array(
-						//"siteurl" => Mage::getBaseUrl(),
 						"title" => $post['title'],
 						"message" => $post['message'],
 						"redirect_url" => $post['url'],

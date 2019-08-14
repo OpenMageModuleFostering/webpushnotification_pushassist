@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Webpushnotification_Pushassist>
-      <version>1.0.5</version>
+      <version>1.0.6</version>
     </Webpushnotification_Pushassist>
   </modules>
   <global>
