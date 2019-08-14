@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <adminhtml_pushassist_createaccount_index>
+      <reference name="head">
+	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	</reference>
+      <reference name="content">
+	  <block type="pushassist/adminhtml_createaccount" name="login" template="pushassist/create_account.phtml"/>
+      </reference>
+  </adminhtml_pushassist_createaccount_index>
+  <adminhtml_pushassist_dashboard_index>
+      <reference name="head">
+	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	</reference>
+      <reference name="content">
+	  <block type="pushassist/adminhtml_dashboard" name="dashboard" template="pushassist/dashboard.phtml"/>
+      </reference>
+  </adminhtml_pushassist_dashboard_index>
+  <adminhtml_pushassist_notificationmain_index>
+	<reference name="head">
+	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	</reference>
+	<reference name="content">
+	  <block type="pushassist/adminhtml_notificationmain" name="notification" template="pushassist/notification.phtml"/>
+	</reference>
+  </adminhtml_pushassist_notificationmain_index>
+  <adminhtml_pushassist_notificationsend_index>
+	<reference name="head">
+	    <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	    <action method="addJs"><script>pushassist/jquery.min.js</script></action>
+	</reference> 
+	<reference name="content">
+	  <block type="pushassist/adminhtml_notificationsend" name="notificationsend" template="pushassist/sendnotification.phtml"/>
+	</reference>
+  </adminhtml_pushassist_notificationsend_index>
+  <adminhtml_pushassist_segments_index>
+	<reference name="head">
+	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	</reference>
+	<reference name="content">
+	  <block type="pushassist/adminhtml_segments" name="segments" template="pushassist/segments.phtml"/>
+	</reference>
+  </adminhtml_pushassist_segments_index>
+  <adminhtml_pushassist_createsegments_index>
+	<reference name="head">
+	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	</reference>
+	<reference name="content">
+	  <block type="pushassist/adminhtml_createsegments" name="createsegments" template="pushassist/createsegments.phtml"/>
+	</reference>
+  </adminhtml_pushassist_createsegments_index>
+  
+  <adminhtml_pushassist_subscribers_index>
+	<reference name="head">
+	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	</reference>
+	<reference name="content">
+	  <block type="pushassist/adminhtml_subscribers" name="subscribers" template="pushassist/subscribers.phtml"/>
+	</reference>
+  </adminhtml_pushassist_subscribers_index>
+ <!--<adminhtml_pushassist_campaign_index>
+	<reference name="head">
+	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	</reference>
+	<reference name="content">
+	  <block type="pushassist/adminhtml_campaign" name="campaign" template="pushassist/campaign.phtml"/>
+	</reference>
+  </adminhtml_pushassist_campaign_index>
+  <adminhtml_pushassist_createcampaign_index>
+	<reference name="head">
+	  <action method="addItem"><type>skin_css</type><name>pushassist/content_base.css</name><params/></action>
+	</reference>
+	<reference name="content">
+	  <block type="pushassist/adminhtml_createcampaign" name="createcampaign" template="pushassist/createcampaign.phtml"/>
+	</reference>
+  </adminhtml_pushassist_createcampaign_index>-->
+</layout>

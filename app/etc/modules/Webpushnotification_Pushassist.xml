@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Webpushnotification_Pushassist>
+      <active>true</active>
+      <codePool>community</codePool>
+    </Webpushnotification_Pushassist>
+  </modules>
+</config>

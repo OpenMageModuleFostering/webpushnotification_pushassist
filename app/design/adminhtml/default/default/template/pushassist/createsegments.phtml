@@ -1,0 +1,70 @@
+<?php 
+$check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
+$check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
+$account_response = Mage::helper('pushassist')->get_account_details();
+$account_url='https://'.$account_response['account_name'].'.pushassist.com/login/';
+
+if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] == '' && $account_response) {
+?>
+
+
+<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+<div id="Psidebar" >
+  <ul>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>">Dashboard</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>">Notifications</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>">Send Notification</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>">Segments</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>">Create Segment</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>">Subscribers</a></li>
+    <li><p><?php echo $account_response['planType'];?>&nbsp;&nbsp;<a href="<?php echo $account_url;?>" target="_blank">Upgrade Now</a> </p></li>
+    <li><p>You have <?php echo $account_response['subscribers_remain'];?> subsribers left</p></li>
+  </ul>
+  </div>
+<!-- Content Start -->
+    <div id="pushassist" class="content clearfix">
+        <!-- Start Page Header -->
+        <div class="page-header">
+            <h1 class="title">Create a New Segment</h1>
+        </div>
+        <!-- End Page Header -->
+
+        <!-- Container Start -->
+        <div class="container-widget clearfix">
+            <div class="alert alert-danger alert-dismissable" id="pushassist_error" style="display: none"></div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="<?php echo $this->getUrl('*/*/addsegments'); ?>" method="post" autocomplete="off" id="create_segment_form" name="create_segment_form" enctype="multipart/form-data">                            
+                            <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label form-label">Segment Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Segment Name here" maxlength="40" required="required" />
+                                    <span class="pull-right">Segment Name Limit 40 Characters.Example segment name:Google</span>
+                                </div>
+                            </div>
+                            
+			    <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-1 col-xs-3">
+                                    <button type="submit" class="btn btn-default">Send</button>
+                                </div>
+			    </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Content End -->
+<?php }else{
+Mage::app()->getResponse()->setRedirect(Mage::helper("adminhtml")->getUrl("adminhtml/pushassist_createaccount/index/"));
+
+} ?>    
+   
+	  
+
+

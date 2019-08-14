@@ -1,0 +1,99 @@
+<?php 
+$get_campaigns = Mage::helper('pushassist')->get_campaigns();
+$check_api_key=Mage::app()->getStore()->getConfig('pushassistsection/general/apikey');
+$check_secret_key=Mage::app()->getStore()->getConfig('pushassistsection/general/secretkey');
+$account_response = Mage::helper('pushassist')->get_account_details();
+$account_url='https://'.$account_response['account_name'].'.pushassist.com/login/';
+
+if($check_api_key!='' && $check_secret_key != '' && $account_response['error'] == '' && $account_response ) {
+if( count($get_campaigns) > 0){ 
+//print_r($get_segement);
+?>
+<div id="Psidebar" >
+  <ul>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createaccount'); ?>">Create an Account</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_dashboard'); ?>">Dashboard</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationmain'); ?>">Notifications</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_notificationsend'); ?>">Send Notification</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_segments'); ?>">Segments</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_createsegments'); ?>">Create Segment</a></li>
+    <li><a href="<?php echo $this->getUrl('*/pushassist_subscribers'); ?>">Subscribers</a></li>
+    <li><p><?php echo $account_response['planType'];?>&nbsp;&nbsp;<a href="<?php echo $account_url;?>" target="_blank">Upgrade Now</a> </p></li>
+    <li><p>You have <?php echo $account_response['subscribers_remain'];?> subsribers left</p></li>
+  </ul>
+  </div>
+<!-- Content Start -->
+    <div id="pushassist" class="content dashboard clearfix">
+        <!-- Start Page Header -->
+        <div class="page-header">
+            <h1 class="title">Subscribers</h1>
+        </div>
+        <!-- End Page Header -->
+
+        <!-- Container Start -->
+        <div class="container-widget clearfix">
+           
+
+            <!-- Project Stats Start -->
+            <div class="col-md-12 col-lg-12">
+                <div class="panel panel-widget">
+                    <div class="panel-title">
+                        Total <span class="label label-info"><?php echo count($get_campaigns);?></span> Campaign
+                       
+                    </div>
+                    <div class="panel-search">
+                        <form>
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <i class="fa fa-search icon"></i>
+                        </form>
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>site url</td>
+                                <td>Title</td>
+				<td>message</td>
+				<td>redirect url</td>
+				<td>total sent</td>
+				<td>failed</td>
+				<td>total clicked</td>
+				<td>Created at</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+			      <?php $i = 1;
+				foreach($get_campaigns as $get_campaigns_list){?>
+                                <tr>
+				
+                                    <td><?php echo $i;?></td>
+                                    <td><?php echo $get_campaigns_list['siteurl']?></td>
+                                    <td><?php echo $get_campaigns_list['title'];?></td>
+				    <td><?php echo $get_campaigns_list['message'];?></td>
+				    <td><?php echo $get_campaigns_list['redirecturl'];?></td>
+				    <td><?php echo $get_campaigns_list['total_sent']?></td>
+                                    <td><?php echo $get_campaigns_list['failed'];?></td>
+				    <td><?php echo $get_campaigns_list['total_clicked'];?></td>
+				    <td><?php echo $get_campaigns_list['created_at'];?></td>
+                                </tr>
+				  
+                                <?php $i++;
+				  } ?>
+                                                              
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Project Stats End -->
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Content End -->
+<?php }else{ 
+	    echo "No result found.";
+}
+}else{
+ Mage::app()->getResponse()->setRedirect(Mage::helper("adminhtml")->getUrl("adminhtml/pushassist_createaccount/index/"));
+} ?>

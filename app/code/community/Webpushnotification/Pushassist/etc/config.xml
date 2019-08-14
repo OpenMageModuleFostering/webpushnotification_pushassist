@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Webpushnotification_Pushassist>
+      <version>1.0.1</version>
+    </Webpushnotification_Pushassist>
+  </modules>
+  <global>
+    <helpers>
+      <pushassist>
+        <class>Webpushnotification_Pushassist_Helper</class>
+      </pushassist>
+    </helpers>
+	<blocks>
+	  <pushassist>
+		<class>Webpushnotification_Pushassist_Block</class>
+	  </pushassist>
+	  <googleanalytics>
+                <rewrite>
+                     <ga>Webpushnotification_Pushassist_Block_Script</ga>
+                </rewrite>                     
+	  </googleanalytics>
+	</blocks>
+	
+  </global>
+  <admin>
+    <routers>
+        <adminhtml>
+            <args>
+                <modules>
+                    <pushassist after="Mage_Adminhtml">Webpushnotification_Pushassist_Adminhtml</pushassist>
+                </modules>
+            </args>
+        </adminhtml>
+    </routers>
+</admin>
+  
+  <adminhtml>
+	<menu>
+	  <pushassist module="pushassist">
+		<title>PushAssist</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <createaccount module="pushassist">
+			<title>Create an Account</title>
+			<sort_order>0</sort_order>
+			<action>adminhtml/pushassist_createaccount</action>
+		  </createaccount>
+		  <dashboard module="pushassist">
+			<title>Dashboard</title>
+			<sort_order>1</sort_order>
+			<action>adminhtml/pushassist_dashboard</action>
+		  </dashboard>
+		  <notificationmain module="pushassist">
+			<title>Notifications</title>
+			<sort_order>2</sort_order>
+			<action>adminhtml/pushassist_notificationmain</action>
+		  </notificationmain>
+		  <notificationsend module="pushassist">
+			<title>Send Notification</title>
+			<sort_order>3</sort_order>
+			<action>adminhtml/pushassist_notificationsend</action>
+		  </notificationsend>
+		  <segments module="pushassist">
+			<title>Segments</title>
+			<sort_order>4</sort_order>
+			<action>adminhtml/pushassist_segments</action>
+		  </segments>
+		  <createsegments module="pushassist">
+			<title>Create Segment</title>
+			<sort_order>5</sort_order>
+			<action>adminhtml/pushassist_createsegments</action>
+		  </createsegments>
+		  <subscribers module="pushassist">
+			<title>Subscribers</title>
+			<sort_order>6</sort_order>
+			<action>adminhtml/pushassist_subscribers</action>
+		  </subscribers>
+		  <!--<campaign module="pushassist">
+			<title>Campaign</title>
+			<sort_order>7</sort_order>
+			<action>adminhtml/pushassist_campaign</action>
+		  </campaign>
+		  <createcampaign module="pushassist">
+			<title>Create Campaign</title>
+			<sort_order>8</sort_order>
+			<action>adminhtml/pushassist_createcampaign</action>
+		  </createcampaign>-->
+		</children>
+	  </pushassist>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<pushassist translate="title" module="pushassist">
+			  <title>PushAssist</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+			    <createaccount translate="title">
+				<title>Create an Account</title>
+			  </createaccount>
+			 <dashboard translate="title">
+				<title>Dashboard</title>
+			  </dashboard>
+			  <notificationmain translate="title">
+				<title>Notifications</title>
+			  </notificationmain>
+			  <notificationsend translate="title">
+				<title>Send Notification</title>
+			  </notificationsend>
+			  <segments translate="title">
+				<title>Segments</title>
+			  </segments>
+			  <createsegments translate="title">
+				<title>Create Segment</title>
+			  </createsegments>
+			  <subscribers translate="title">
+				<title>Subscribers</title>
+			  </subscribers>
+			  <!--<campaign translate="title">
+				<title>Campaign</title>
+			  </campaign>
+			  <createcampaign translate="title">
+				<title>Create Campaign</title>
+			  </createcampaign>-->
+			  </children>
+			</pushassist>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<pushassist>
+		  <file>pushassist.xml</file>
+		</pushassist>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 
