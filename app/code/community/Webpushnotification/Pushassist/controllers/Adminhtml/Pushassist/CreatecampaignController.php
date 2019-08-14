@@ -17,9 +17,7 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_CreatecampaignControll
 
 		}
 		
-
-
- $response_array = array("campaign" => array(
+		$response_array = array("campaign" => array(
 						"siteurl" => urlencode(Mage::getBaseUrl()),
 						"title" => urlencode($post['title']),
 						"message" => urlencode($post['message']),

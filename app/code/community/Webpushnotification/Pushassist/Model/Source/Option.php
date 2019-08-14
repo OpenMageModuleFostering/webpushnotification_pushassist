@@ -16,7 +16,11 @@ extends Mage_Eav_Model_Entity_Attribute_Source_Table
         *
         */
         foreach($col as $get_segment_list){
-            array_push($return,array('label'=>$get_segment_list['name'],'value'=>$get_segment_list['id']));
+          
+             if (isset($get_segment_list['name']) && isset($get_segment_list['id'])) {
+
+                array_push($return,array('label'=> $get_segment_list['name'],'value'=> $get_segment_list['id']));
+            }
         }
         return $return;
  
