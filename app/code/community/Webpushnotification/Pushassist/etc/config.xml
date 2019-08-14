@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Webpushnotification_Pushassist>
-      <version>1.0.4</version>
+      <version>1.0.5</version>
     </Webpushnotification_Pushassist>
   </modules>
   <global>
@@ -11,6 +11,12 @@
         <class>Webpushnotification_Pushassist_Helper</class>
       </pushassist>
     </helpers>
+    <models>
+	<pushassist>
+                <class>Webpushnotification_Pushassist_Model</class>
+            </pushassist>   
+         
+        </models>
 	<blocks>
 	  <pushassist>
 		<class>Webpushnotification_Pushassist_Block</class>
@@ -21,7 +27,17 @@
                 </rewrite>                     
 	  </googleanalytics>
 	</blocks>
-	
+	<events>
+            <admin_system_config_changed_section_pushassistsection>
+                <observers>
+                    <notification_observer>
+                        <type>singleton</type>
+                        <class>Webpushnotification_Pushassist_Model_Observer</class>
+                        <method>handle_adminSystemConfigChangedSection</method>
+                    </notification_observer>
+                </observers>
+            </admin_system_config_changed_section_pushassistsection>
+        </events>
   </global>
   <admin>
     <routers>

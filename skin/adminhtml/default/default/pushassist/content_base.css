@@ -345,6 +345,7 @@ background: #ffffff none repeat scroll 0 0;
     padding-left: 10px;
 }
 #pushassist .float-r { float:right;}
+
 @media (min-width: 768px) {
   #pushassist .col-sm-1, #pushassist .col-sm-2, #pushassist .col-sm-3, #pushassist .col-sm-4, #pushassist .col-sm-5, #pushassist .col-sm-6, #pushassist .col-sm-7, #pushassist .col-sm-8, #pushassist .col-sm-9, #pushassist .col-sm-10, #pushassist .col-sm-11, #pushassist .col-sm-12 {
     float: left;
@@ -894,20 +895,9 @@ background: #ffffff none repeat scroll 0 0;
      width: 80px !important;
  }
 
- #pushassist .wrapper .text_wrapper {
-     padding: 5px 13px 10px 0;
-     width: 269px !important;
- }
+  #pushassist .wrapper .text_wrapper {width: 270px; padding: 5px 10px 5px 0px; max-height: 150px; min-height: 95px;color: #3e3e3e; font-family: Open Sans; font-weight: 500;}
 
- #pushassist .wrapper .text_wrapper .message {
-     font-size: 12px;
-     font-weight: 100;
-     line-height: 15px;
-     margin: 8px 0;
-     max-height: 30px;
-     min-height: 30px;
-     overflow: hidden;
- }
+ #pushassist .wrapper .text_wrapper .message {margin: 8px 0px; max-height: 55px; min-height: 30px; overflow: hidden; font-size: 12px; line-height: 17px; font-weight: 100; padding-right: 2px;} /* max-height: 30px; */
 
  #pushassist .wrapper .text_wrapper .domain {
      color: #7f7f7f;
@@ -919,19 +909,9 @@ background: #ffffff none repeat scroll 0 0;
      width: 96%;
  }
 
- #pushassist .wrapper .text_wrapper .title .closer {
-     position: relative;
-     top: -6px;
- }
+ #pushassist .wrapper .text_wrapper .title .closer {position: relative; top: -6px; left: 1px; cursor: pointer;}
 
- #pushassist .wrapper .text_wrapper .title {
-     font-size: 13.5px !important;
-     letter-spacing: 0.5px;
-     line-height: 18px;
-     margin: 4px 0 8px;
-     max-height: 36px;
-     overflow: hidden;
- }
+ #pushassist .wrapper .text_wrapper .title {font-size: 13px !important; line-height: 18px; max-height: 55px; overflow: hidden; margin: 4px 0px 8px; letter-spacing: 0.5px;}    /*max-height: 36px*/
 
  #pushassist .dummy-notification .redirect_url {
      font-size: 12px;

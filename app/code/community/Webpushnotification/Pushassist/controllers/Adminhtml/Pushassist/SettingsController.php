@@ -13,21 +13,34 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_SettingsController ext
 	    if($post){
 
 		  if(isset($_FILES['fileupload']['name']) && $_FILES['fileupload']['name'] != '') {
-			$baseurl=Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true );  
+		      if($_FILES['fileupload']['size'] < 5000){
+			$baseurl=Mage::getBaseUrl( Mage_Core_Model_Store::URL_TYPE_WEB, true );
 			$uploader = new Varien_File_Uploader('fileupload');
 			$uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
 			$uploader->setAllowRenameFiles(false);
 			$uploader->setFilesDispersion(false);
 			$random_digit=rand(0000,9999);
-			$new_file_name=$random_digit.$_FILES['fileupload']['name'];
+			$ext = substr($_FILES['fileupload']['name'], strrpos($_FILES['fileupload']['name'], '.') + 1);
+			$new_file_name = time() . '.' . $ext;
+			//$new_file_name=$random_digit.$_FILES['fileupload']['name'];
 			$path = Mage::getBaseDir('media').DS.'pushassist'.DS.'site'.DS;
 			$uploader->save($path, $new_file_name);
 			$post['fileupload'] = 'pushassist'.DS.$new_file_name; 
-			$full_image_path=$baseurl.'media/pushassist/site/'.$new_file_name;
+			//$full_image_path=$baseurl.'media/pushassist/site/'.$new_file_name;
+			 $full_image_path=base64_encode(file_get_contents($path.$new_file_name));
+
+
+		    }else{
+			$sizemessage='Image Size must be exactly 250x250px.';
+			Mage::getSingleton('adminhtml/session')->addError($sizemessage);
+			$this->_redirect('*/*/');
+			return;
+
+		    }
 		}else{
+			$new_file_name='';
 			$full_image_path='';
 		}
-
 
 		  $response_array = array("templatesetting" => array("interval_time" => $post['pushassist_timeinterval'],
 							"opt_in_title" => trim($post['pushassist_opt_in_title']),
@@ -38,6 +51,7 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_SettingsController ext
 							"location" => $post['psa_template_location'],
 							"image_data" => $full_image_path,	// read image file & pass image data
 							"image_name" => trim($new_file_name),
+							"child_window_text" => trim($post['pushassist_child_window_text']),
 							"child_window_title" => trim($post['pushassist_child_window_title']),
 							"child_window_message" => trim($post['pushassist_child_window_message']),
 							"notification_title" => trim($post['pushassist_setting_title']),
@@ -45,6 +59,7 @@ class Webpushnotification_Pushassist_Adminhtml_Pushassist_SettingsController ext
 							"redirect_url" => trim($post['pushassist_redirect_url']))
 						);
 	      
+		  
 		  $response = Mage::helper('pushassist')->settings($response_array);
 
 		  if($response['status'] == 'Success'){
