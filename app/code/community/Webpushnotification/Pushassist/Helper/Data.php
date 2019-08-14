@@ -31,7 +31,7 @@
             $client_account_details->setHeaders('X-Auth-Secret', $check_secret_key);
             $client_account_details->setHeaders('Content-Type', 'application/json');
             $client_account_details->setMethod(Zend_Http_Client::GET);
-            $account_details_result = $client_account_details->request()->getRawBody();
+            $account_details_result = $client_account_details->request()->getBody();
 	   } catch (Zend_Exception $e) {
                 $account_details_result = "";
             }
@@ -49,7 +49,7 @@
 		$client_account_details->setHeaders('X-Auth-Secret', $check_secret_key);
 		$client_account_details->setHeaders('Content-Type', 'application/json');
 		$client_account_details->setMethod(Zend_Http_Client::GET);
-		$account_details_result = $client_account_details->request()->getRawBody();
+		$account_details_result = $client_account_details->request()->getBody();
 
 	    } catch (Zend_Exception $e) {
                 $account_details_result = "";
@@ -67,7 +67,7 @@
                 $client_dashboard->setHeaders('X-Auth-Secret', $check_secret_key);
                 $client_dashboard->setHeaders('Content-Type', 'application/json');
                 $client_dashboard->setMethod(Zend_Http_Client::GET);
-                $dashboard_result = $client_dashboard->request()->getRawBody();
+                $dashboard_result = $client_dashboard->request()->getBody();
             } catch (Zend_Exception $e) {
                 $dashboard_result = "";
             }
@@ -129,7 +129,7 @@
 		$client_segments->setHeaders('X-Auth-Secret', $check_secret_key);
 		$client_segments->setHeaders('Content-Type', 'application/json');
 		$client_segments->setMethod(Zend_Http_Client::GET);
-		$segments_result = $client_segments->request()->getRawBody();
+		$segments_result = $client_segments->request()->getBody();
 	    } catch (Zend_Exception $e) {
                 $segments_result = "";
             }
@@ -147,7 +147,7 @@
             $client_subscribers->setHeaders('X-Auth-Secret', $check_secret_key);
             $client_subscribers->setHeaders('Content-Type', 'application/json');
             $client_subscribers->setMethod(Zend_Http_Client::GET);
-            $subscribers_result = $client_subscribers->request()->getRawBody();
+            $subscribers_result = $client_subscribers->request()->getBody();
 	  } catch (Zend_Exception $e) {
                 $subscribers_result = "";
             }
@@ -165,7 +165,7 @@
             $client_notifications->setHeaders('X-Auth-Secret', $check_secret_key);
             $client_notifications->setHeaders('Content-Type', 'application/json');
             $client_notifications->setMethod(Zend_Http_Client::GET);
-            $notifications_result = $client_notifications->request()->getRawBody();
+            $notifications_result = $client_notifications->request()->getBody();
 	  } catch (Zend_Exception $e) {
                 $notifications_result = "";
 	  }
@@ -187,7 +187,7 @@
             $client_notifications_by_count->setHeaders('X-Auth-Secret', $check_secret_key);
             $client_notifications_by_count->setHeaders('Content-Type', 'application/json');
             $client_notifications_by_count->setMethod(Zend_Http_Client::GET);
-            $notifications_by_count_result = $client_notifications_by_count->request()->getRawBody();
+            $notifications_by_count_result = $client_notifications_by_count->request()->getBody();
 	  } catch (Zend_Exception $e) {
                 $notifications_by_count_result = "";
 	  }
@@ -205,7 +205,7 @@
             $client_campaigns->setHeaders('X-Auth-Secret', $check_secret_key);
             $client_campaigns->setHeaders('Content-Type', 'application/json');
             $client_campaigns->setMethod(Zend_Http_Client::GET);
-            $campaigns_result = $client_campaigns->request()->getRawBody();
+            $campaigns_result = $client_campaigns->request()->getBody();
 	  } catch (Zend_Exception $e) {
                 $campaigns_result = "";
 	  }

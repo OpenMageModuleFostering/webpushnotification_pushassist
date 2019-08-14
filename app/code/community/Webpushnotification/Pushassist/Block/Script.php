@@ -8,8 +8,12 @@ class Webpushnotification_Pushassist_Block_Script extends Mage_GoogleAnalytics_B
 	if($account_response['error'] == ''){
 	    $html=parent::_toHtml();
 	    $subdomain_name=$account_response['account_name'];
-	    $jsPath= 'https://cdn.pushassist.com/account/assets/psa-'.$subdomain_name.'.js';
-	    $html .= '<script src="'.$jsPath.'"></script>';
+	    if($subdomain_name != ''){
+	      $jsPath= 'https://cdn.pushassist.com/account/assets/psa-'.$subdomain_name.'.js';
+	      $html .= '<script src="'.$jsPath.'"></script>';
+	    }else{
+	      $html .='';
+	    }
 	}else{
 	    $html=parent::_toHtml();
 	}
